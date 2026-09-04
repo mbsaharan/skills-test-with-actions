@@ -1,4 +1,4 @@
-# automerge.yml
+# .github/workflows/automerge.yml
 name: Auto Merge on Label
 
 on:
@@ -13,7 +13,7 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - name: Merge PR
-        uses: pascalgn/automerge-action@v0.16.0
+      - name: Auto-merge PR using GitHub CLI
+        run: gh pr merge "${{ github.event.pull_request.number }}" --squash
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
