@@ -1,0 +1,23 @@
+name: Label Approved Pull Request
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  label-on-approval:
+    # Run only if the submitted review was an explicit approval
+    if: github.event.review.state == 'approved'
+    runs-on: ubuntu-latest
+
+    # Grant write permissions so GITHUB_TOKEN can add labels to Pull Requests
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Label when approved
+        uses: pullreminders/label-when-approved-action@main
+        env:
+          APPROVALS: "1"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ADD_LABEL: "approved"
