@@ -1,17 +1,21 @@
-# automerge.yml
 name: Auto Merge on Label
 
 on:
-  pull_request:
+  pull_request_target:
     types: [labeled]
 
 jobs:
   merge:
-    # Only run if the newly added label is 'approved'
     if: github.event.label.name == 'approved'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
-      - name: Merge PR
-        uses: pascalgn/automerge-action@v0.16.0
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Auto-merge PR using GitHub CLI
+        run: gh pr merge ${{ github.event.pull_request.number }} --squash --admin
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
