@@ -16,6 +16,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Auto-merge PR using GitHub CLI
-        run: gh pr merge ${{ github.event.pull_request.number }} --squash --admin
+        run: gh pr merge ${{ github.event.pull_request.number }} --squash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
