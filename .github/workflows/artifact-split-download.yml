@@ -1,0 +1,26 @@
+name: Download Workflow
+
+on:
+  workflow_run:
+    workflows: ["Upload Workflow"]
+    types:
+      - completed
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  job_2:
+    name: Download File
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: file
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Read File
+        run: cat file.txt
