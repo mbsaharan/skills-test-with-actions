@@ -8,8 +8,8 @@ jobs:
   add-to-project:
     runs-on: ubuntu-latest
     steps:
-      - name: Add Issue to User Project #1
+      - name: Add Issue to User Project #2
         uses: actions/add-to-project@main
         with:
           project-url: https://github.com/users/mbsaharan/projects/2
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
