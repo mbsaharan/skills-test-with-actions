@@ -11,5 +11,5 @@ jobs:
       - name: Add Issue to User Project #1
         uses: actions/add-to-project@main
         with:
-          project-url: https://github.com/users/mbsaharan/projects/1
+          project-url: https://github.com/users/mbsaharan/projects/2
           github-token: ${{ secrets.GITHUB_TOKEN }}
