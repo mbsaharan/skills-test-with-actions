@@ -1,0 +1,29 @@
+name: Add Issue to Project Test
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  add-to-project:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      repository-projects: write
+    steps:
+      - name: Add to Project Board
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Moves or logs context when an issue is created
+            core.info(`Processing issue #${context.issue.number} for project tracking...`);
+            
+            // Example REST call for classic project card creation
+            // (Requires column_id from your existing Classic Project board)
+            /*
+            await github.rest.projects.createCard({
+              column_id: 12345678,
+              content_id: context.payload.issue.id,
+              content_type: 'Issue'
+            });
+            */
