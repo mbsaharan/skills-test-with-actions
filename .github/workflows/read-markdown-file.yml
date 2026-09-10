@@ -1,0 +1,23 @@
+name: Read Markdown File
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  read-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Read and print Markdown file
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            // Read the markdown file synchronously
+            const content = fs.readFileSync('README.md', 'utf8');
+            
+            // Print content to GitHub Actions workflow logs
+            console.log(content);
