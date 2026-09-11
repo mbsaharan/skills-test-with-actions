@@ -1,0 +1,27 @@
+name: Execute Custom Script
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-custom-js:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Check out the repository files so Node can access them
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Step 2: Run the script using the actions/github-script action
+      - name: Execute Node Script
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const path = require('path')
+            // Path relative to the root of your repository
+            const scriptPath = path.resolve('.github/scripts/javascript.js')
+            const runScript = require(scriptPath)
+            
+            // Execute the exported module passing GitHub context objects
+            await runScript({ github, context, core })
